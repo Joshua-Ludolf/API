@@ -1,5 +1,5 @@
 # To run open terminal and type the following:
-# uvicorn API:app --reload
+# uvicorn api:app --reload
 
 import product
 from fastapi import FastAPI, Path
@@ -7,8 +7,8 @@ from fastapi import FastAPI, Path
 app = FastAPI()
 
 inventory = {
-    1: product.Product('Whole Milk', 3.99, 'Borden').__str__,
-    2: product.Product('Fat Free Milk', 4.99, 'Borden').__str__
+    1: product.Product('Whole Milk', 3.99, 'Borden'),
+    2: product.Product('Fat Free Milk', 4.99, 'Borden')
 }
 
 inventory_list = []
