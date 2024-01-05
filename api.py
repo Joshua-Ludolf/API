@@ -7,8 +7,8 @@ from fastapi import FastAPI, Path
 app = FastAPI()
 
 inventory = {
-    1: Product.Product('Whole Milk', 3.99, 'Borden').__str__,
-    2: Product.Product('Fat Free Milk', 4.99, 'Borden').__str__
+    1: product.Product('Whole Milk', 3.99, 'Borden').__str__,
+    2: product.Product('Fat Free Milk', 4.99, 'Borden').__str__
 }
 
 inventory_list = []
