@@ -1,7 +1,7 @@
 # To run open terminal and type the following:
 # uvicorn API:app --reload
 
-import Product
+import product
 from fastapi import FastAPI, Path
 
 app = FastAPI()
