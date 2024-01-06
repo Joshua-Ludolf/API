@@ -16,8 +16,8 @@ inventory = {
 def home():
     inventory_list = ''
     for key, i in inventory.items():
-        inventory_list += i + "\n"
-    return f'{inventory_list}'  # JSON format = python dictionary
+        inventory_list += i + u"\u000A"
+    return f'{inventory_list}'
 
 
 @app.get('/get-item/{item_id}')
