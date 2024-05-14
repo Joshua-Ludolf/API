@@ -29,7 +29,7 @@ def get_price(name: Optional[str] = None):
     return{'Data': 'Not found!'}
 
 @app.get('/brand/{brand_name}')
-def get_items(brand_name: Optional[str] = None):
+def get_products(brand_name: Optional[str] = None):
     products = []
     for i in product.inventory:
         if product.inventory[i]['brand'] == brand_name:
