@@ -22,7 +22,7 @@ def get_item(item_id: int = Path(description="ID of Item")):
     return item
 
 @app.get('/get-price/{name}')
-def get_item(name: Optional[str] = None):
+def get_price(name: Optional[str] = None):
     for i in product.inventory:
         if product.inventory[i]['name'] == name:
             return product.inventory.get(i).__getitem__('price')
