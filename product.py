@@ -1,13 +1,23 @@
-class Product:
-    def __init__(self, name: str, price: float, brand: str):
+from typing import Optional
+
+class Item():
+    def __init__(self, name: str, price: float, brand: Optional[str]):
         self.name = name
         self.price = price
         self.brand = brand
 
-    @property
-    def __getattr__(self):
-        return {self.name}, {self.price}, {self.brand}
+inventory = {
+    
+    1: {
+            'name' : 'Whole Milk', 
+            'price' : '$' + str(3.99), 
+            'brand' : 'Borden' 
+        },
 
-    @property
-    def __str__(self):
-        return f'{self.__getattr__}'
+    2: {
+            'name' : 'Fat Free Milk',
+            'price' : '$' + str(4.99),
+            'brand' : 'Borden'
+       }
+
+    }
