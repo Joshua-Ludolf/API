@@ -5,5 +5,5 @@
 </h1>
 
   <p>
-    Self Learning of how FastAPI work.
+    Self Learning of how Application Program Interfaces work.
   </p>

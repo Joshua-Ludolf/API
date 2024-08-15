@@ -1,0 +1,5 @@
+{
+    "1": {"name": "Milk", "price": "$2.99", "brand": "Borden"}, 
+    "2": {"name": "Fat Free Milk", "price": "$3.99", "brand": "Borden"}, 
+    "3": {"name": "Waffle", "price": "$7.99", "brand": "Eggo"}
+}

@@ -2,8 +2,17 @@
 # uvicorn api:app --reload
 
 from typing import Optional
-import product
 from fastapi import FastAPI, Path, Query, HTTPException
+import uvicorn
+from pydantic import BaseModel
+import json
+
+
+class Item(BaseModel):
+    name: str
+    price: str
+    brand: str
+
 
 
 app = FastAPI()
@@ -11,30 +20,41 @@ app = FastAPI()
 
 @app.get("/")
 def home():
-    inventory_list = []
-    for i in product.inventory.values():
-        inventory_list.append(i)
-    return inventory_list
+    try:
+        with open('inventory.json', 'r') as file:
+            inventory = json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        inventory = {}
+    return inventory
+    
 
 @app.get('/get-item/{item_id}')
-def get_item(item_id: int = Path(description="ID of Item")):
-    item = '{' + product.inventory.get(item_id).__getitem__('name') + ', ' + product.inventory.get(item_id).__getitem__('price') +', ' + product.inventory.get(item_id).__getitem__('brand') + '}'
-    return item
-
-@app.get('/get-price/{name}')
-def get_price(name: Optional[str] = None):
-    for i in product.inventory:
-        if product.inventory[i]['name'] == name:
-            return product.inventory.get(i).__getitem__('price')
-    return{'Data': 'Not found!'}
-
-@app.get('/brand/{brand_name}')
-def get_products(brand_name: Optional[str] = None):
-    products = []
-    for i in product.inventory:
-        if product.inventory[i]['brand'] == brand_name:
-            products.append(product.inventory[i].__getitem__('name') + ', ' + product.inventory[i].__getitem__('price'))
-    return products
+def get_item(item_id: str = Path(description="ID of Item")):
+    try:
+        with open('inventory.json', 'r') as file:
+            inventory = json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        inventory = {}
+    if inventory.get(item_id) is None:
+        return {"Item Doesn't Exist!"}
+    return inventory.get(item_id)
 
 
+@app.put('/add-product')
+async def add_item(item: Item):
+    try:
+        with open('inventory.json', 'r') as file:
+            inventory = json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        inventory = {}
+    new_key = len(inventory) + 1
+    inventory[new_key] = item.dict()
+
+    with open('inventory.json', 'w') as file:
+        json.dump(inventory, file)
+    file.close()
+    return {"inventory": inventory}
+
+if __name__ == '__main__':
+    uvicorn.run(app, host='localhost', port=8000)
     
